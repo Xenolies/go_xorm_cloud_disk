@@ -18,3 +18,11 @@ type UserDetailReply struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
+
+type MailCodeSendRequest struct {
+	Email string `json:"email"`
+}
+
+type MailCodeSendReply struct {
+	Code string `json:"code"`
+}
