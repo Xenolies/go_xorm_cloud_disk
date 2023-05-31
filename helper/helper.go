@@ -7,8 +7,11 @@ import (
 	"crypto/tls"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/google/uuid"
 	"github.com/jordan-wright/email"
+	"math/rand"
 	"net/smtp"
+	"time"
 )
 
 /**
@@ -43,18 +46,35 @@ func MailSendCode(mail string, code string) error {
 	e := email.NewEmail()
 	e.From = "Jordan Wright <" + consts.MailAddr + ">"
 	e.To = []string{mail}
-	e.Subject = " 验证码测试邮件 "
+	e.Subject = " 验证码 "
 	e.HTML = []byte(" 验证码: <h1>" + code + "</h1>")
 	err := e.SendWithTLS(
-		consts.SmtpServerName+":"+consts.SmtpServerPost,
+		"smtp.qq.com:465",
 		smtp.PlainAuth(
 			"", consts.MailAddr,
 			consts.SmtpCodeQQMail,
-			consts.SmtpServerName),
-		&tls.Config{InsecureSkipVerify: true, ServerName: consts.SmtpServerName})
+			"smtp.qq.com"),
+		&tls.Config{InsecureSkipVerify: true, ServerName: "smtp.qq.com"})
 	if err != nil {
 		return err
 	} else {
 		return nil
 	}
+}
+
+// MakeRandCode 生成随机数
+func MakeRandCode() string {
+	s := "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	code := ""
+	rand.Seed(time.Now().UnixNano())
+	for i := 0; i < define.CodeLength; i++ {
+		code += string(s[rand.Intn(len(s))])
+	}
+	return code
+}
+
+// GetUUID 生成 UUID 作为判断用户的唯一标识
+func GetUUID() string {
+	uuid := uuid.New()
+	return uuid.String()
 }

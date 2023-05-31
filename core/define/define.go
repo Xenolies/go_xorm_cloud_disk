@@ -16,3 +16,9 @@ type UserClaim struct {
 }
 
 var JwtKey = "cloud_disk"
+
+// CodeLength 验证码长度
+var CodeLength = 6
+
+// CodeExpiration 过期时间
+var CodeExpiration = 300

@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"github.com/go-redis/redis/v8"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"xorm.io/xorm"
@@ -15,6 +16,8 @@ import (
 
 var Engine = Init()
 
+var RDB = InitRDB()
+
 func Init() *xorm.Engine {
 	engine, err := xorm.NewEngine("mysql", "root:123123@/cloud_disk?charset=utf8")
 	if err != nil {
@@ -24,4 +27,12 @@ func Init() *xorm.Engine {
 	}
 	fmt.Println("xorm.NewEngine Success")
 	return engine
+}
+
+func InitRDB() *redis.Client {
+	return redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       2,
+	})
 }

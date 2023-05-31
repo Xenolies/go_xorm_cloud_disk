@@ -8,8 +8,12 @@ service core-api {
 	get /user/detail (UserDetailRequest) returns (UserDetailReply)
 	
 	// 验证码发送接口
-	@handler EmailSend
+	@handler EmailCodeSend
 	post /mail/code/send (MailCodeSendRequest) returns (MailCodeSendReply)
+	
+	// 用户注册接口
+	@handler UserRegister
+	post /user/register (UserRegisterRequest) returns (UserRegisterReply)
 }
 
 type LoginRequest {
@@ -36,4 +40,18 @@ type MailCodeSendRequest {
 
 type MailCodeSendReply {
 	Code string `json:"code"`
+}
+
+type UserRegisterRequest {
+	// 用户名
+	Name     string `json:"name"`
+	// 密码
+	Password string `json:"password"`
+	// 邮箱
+	Email    string `json:"email"`
+	// 验证码
+	Code     string `json:"code"`
+}
+
+type UserRegisterReply {
 }
