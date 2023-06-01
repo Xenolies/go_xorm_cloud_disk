@@ -1,56 +1,56 @@
 service core-api {
-	// 用户登录
-	@handler UserLogin
-	post /user/login (LoginRequest) returns (LoginReply)
-	
-	// 用户详情
-	@handler UserDetail
-	get /user/detail (UserDetailRequest) returns (UserDetailReply)
-	
-	// 验证码发送接口
-	@handler EmailCodeSend
-	post /mail/code/send (MailCodeSendRequest) returns (MailCodeSendReply)
-	
-	// 用户注册接口
-	@handler UserRegister
-	post /user/register (UserRegisterRequest) returns (UserRegisterReply)
+    // 用户登录
+    @handler UserLogin
+    post /user/login (LoginRequest) returns (LoginReply)
+
+    // 用户详情
+    @handler UserDetail
+    get /user/detail (UserDetailRequest) returns (UserDetailReply)
+
+    // 验证码发送接口
+    @handler EmailCodeSend
+    post /mail/code/send (MailCodeSendRequest) returns (MailCodeSendReply)
+
+    // 用户注册接口
+    @handler UserRegister
+    post /user/register (UserRegisterRequest) returns (UserRegisterReply)
 }
 
 type LoginRequest {
-	Name     string `json:"name"`
-	Password string `json:"password"`
+    Name string `json:"name"`
+    Password string `json:"password"`
 }
 
 type LoginReply {
-	Token string `json:"token"`
+    Token string `json:"token"`
 }
 
 type UserDetailRequest {
-	Identity string `json:"identity"`
+    Identity string `json:"identity"`
 }
 
 type UserDetailReply {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+    Name string `json:"name"`
+    Email string `json:"email"`
 }
 
 type MailCodeSendRequest {
-	Email string `json:"email"`
+    Email string `json:"email"`
 }
 
 type MailCodeSendReply {
-	Code string `json:"code"`
+    Code string `json:"code"`
 }
 
 type UserRegisterRequest {
-	// 用户名
-	Name     string `json:"name"`
-	// 密码
-	Password string `json:"password"`
-	// 邮箱
-	Email    string `json:"email"`
-	// 验证码
-	Code     string `json:"code"`
+    // 用户名
+    Name string `json:"name"`
+    // 密码
+    Password string `json:"password"`
+    // 邮箱
+    Email string `json:"email"`
+    // 验证码
+    Code string `json:"code"`
 }
 
 type UserRegisterReply {

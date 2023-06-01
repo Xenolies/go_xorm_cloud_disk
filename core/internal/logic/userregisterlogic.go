@@ -31,7 +31,7 @@ func NewUserRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *User
 
 func (l *UserRegisterLogic) UserRegister(req *types.UserRegisterRequest) (resp *types.UserRegisterReply, err error) {
 	// 判断验证码 Code 是否一致
-	code, err := models.RDB.Get(l.ctx, req.Email).Result() // 从 redis 中获取验证码
+	code, err := l.svcCtx.RDB.Get(l.ctx, req.Email).Result() // 从 redis 中获取验证码
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (l *UserRegisterLogic) UserRegister(req *types.UserRegisterRequest) (resp *
 		return
 	}
 	// 判断用户名是否存在
-	cnt, err := models.Engine.Where("name = ?", req.Name).Count(new(models.UserBasic))
+	cnt, err := l.svcCtx.Engine.Where("name = ?", req.Name).Count(new(models.UserBasic))
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +64,7 @@ func (l *UserRegisterLogic) UserRegister(req *types.UserRegisterRequest) (resp *
 	}
 	fmt.Println(user.Name)
 	fmt.Println(user.Identity)
-	insert, err := models.Engine.Insert(user)
+	insert, err := l.svcCtx.Engine.Insert(user)
 	if err != nil {
 		return nil, err
 	}

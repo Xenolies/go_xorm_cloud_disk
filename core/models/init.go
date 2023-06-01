@@ -14,12 +14,12 @@ import (
 * @Version: 1.0
  */
 
-var Engine = Init()
+// var Engine = Init()
+//
+// var RDB = InitRDB()
 
-var RDB = InitRDB()
-
-func Init() *xorm.Engine {
-	engine, err := xorm.NewEngine("mysql", "root:123123@/cloud_disk?charset=utf8")
+func Init(driver string, dataSource string) *xorm.Engine {
+	engine, err := xorm.NewEngine(driver, dataSource)
 	if err != nil {
 		fmt.Println("xorm.NewEngine ERROR")
 		log.Printf("xorm.NewEngine Error: %v", err)
@@ -29,10 +29,10 @@ func Init() *xorm.Engine {
 	return engine
 }
 
-func InitRDB() *redis.Client {
+func InitRDB(Addr string, Password string, DB int) *redis.Client {
 	return redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "",
-		DB:       2,
+		Addr:     Addr,
+		Password: Password,
+		DB:       DB,
 	})
 }

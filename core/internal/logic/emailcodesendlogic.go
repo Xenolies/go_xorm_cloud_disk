@@ -30,7 +30,7 @@ func NewEmailCodeSendLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ema
 
 func (l *EmailCodeSendLogic) EmailCodeSend(req *types.MailCodeSendRequest) (resp *types.MailCodeSendReply, err error) {
 	// 查询邮箱是否被注册
-	cnt, err := models.Engine.Where("email = ?", req.Email).Count(new(models.UserBasic))
+	cnt, err := l.svcCtx.Engine.Where("email = ?", req.Email).Count(new(models.UserBasic))
 	if err != nil {
 		return nil, errors.New("邮箱验证码不存在")
 	}
@@ -41,7 +41,7 @@ func (l *EmailCodeSendLogic) EmailCodeSend(req *types.MailCodeSendRequest) (resp
 	// 不存在则会生成验证码
 	code := helper.MakeRandCode()
 	// 将生成的验证码发送到邮箱
-	models.RDB.Set(l.ctx, req.Email, code, time.Second*time.Duration(define.CodeExpiration))
+	l.svcCtx.RDB.Set(l.ctx, req.Email, code, time.Second*time.Duration(define.CodeExpiration))
 	err = helper.MailSendCode(req.Email, code)
 	if err != nil {
 		return nil, err

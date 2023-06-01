@@ -1,0 +1,14 @@
+Name: core-api
+Host: 0.0.0.0
+Port: 8888
+
+## 数据库配置
+Mysql:
+  Driver: ""
+  DataSource: ""
+
+## Redis配置
+Redis:
+  DataSource: ""
+  Password: ""
+  DB: 0

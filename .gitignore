@@ -9,3 +9,4 @@
 .idea/
 core/consts/consts.go
 /test
+/core/etc/core-api.yaml
