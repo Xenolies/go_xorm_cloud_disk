@@ -1,6 +1,8 @@
 package define
 
-import "github.com/dgrijalva/jwt-go"
+import (
+	"github.com/dgrijalva/jwt-go"
+)
 
 /**
 * @Author: Xenolies

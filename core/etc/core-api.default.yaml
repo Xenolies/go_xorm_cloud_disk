@@ -4,11 +4,22 @@ Port: 8888
 
 ## 数据库配置
 Mysql:
-  Driver: ""
-  DataSource: ""
+  Driver: "mysql"
+  DataSource: "root:123123@/cloud_disk?charset=utf8"
 
-## Redis配置
+## Redis 配置
 Redis:
-  DataSource: ""
+  DataSource: "localhost:6379"
   Password: ""
   DB: 0
+
+## 阿里云云存储配置
+## 如果文件的读写权限 ACL 为公共读，即该文件允许匿名访问，则文件 URL 的格式为 https://BucketName.Endpoint/ObjectName。
+## 如果文件所在的 Bucket 绑定了自定义域名，则文件 URL 的格式为 https://YourDomainName/ObjectName。
+## 通过文件 URL 访问图片时，默认是下载行为。如需确保通过文件 URL 访问图片时是预览行为，您需要绑定自定义域名并添加 CNAME 记录。
+AliOSS:
+  AccessKey: "ABCDEFG"
+  SecretKey: "ABCDEFG"
+  Endpoint: "oss-cn-beijing.aliyuncs.com"
+  BucketName: "test-bucket"
+  CustomDomain: ""

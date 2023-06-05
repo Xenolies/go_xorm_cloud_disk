@@ -6,11 +6,14 @@ import (
 	"crypto/md5"
 	"crypto/tls"
 	"fmt"
+	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/google/uuid"
 	"github.com/jordan-wright/email"
 	"math/rand"
+	"net/http"
 	"net/smtp"
+	"path"
 	"time"
 )
 
@@ -77,4 +80,22 @@ func MakeRandCode() string {
 func GetUUID() string {
 	uuid := uuid.New()
 	return uuid.String()
+}
+
+// AliOssUpload 阿里云上传
+func AliOssUpload(bucket *oss.Bucket, req *http.Request) (string, error) {
+	file, fileHandler, err := req.FormFile("file")
+	if err != nil {
+		return "", err
+	}
+	UploadPath := "cloud_disk/" + GetUUID() + path.Ext(fileHandler.Filename) // path.Ext(fileHandler.Filename)获取文件名对应的文件后缀
+	fmt.Println("UPLOADPATH: ", UploadPath)
+	// 上传到OSS上
+	err = bucket.PutObject(UploadPath, file)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return "", err
+	}
+	// 没有错误的话返回文件路径
+	return UploadPath, nil
 }
