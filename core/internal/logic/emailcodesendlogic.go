@@ -41,7 +41,7 @@ func (l *EmailCodeSendLogic) EmailCodeSend(req *types.MailCodeSendRequest) (resp
 	// 不存在则会生成验证码
 	code := helper.MakeRandCode()
 	// 将生成的验证码发送到邮箱
-	l.svcCtx.RDB.Set(l.ctx, req.Email, code, time.Second*time.Duration(define.CodeExpiration))
+	l.svcCtx.RDB.Set(l.ctx, req.Email, code, time.Minute*time.Duration(define.CodeExpiration))
 	err = helper.MailSendCode(req.Email, code)
 	if err != nil {
 		return nil, err

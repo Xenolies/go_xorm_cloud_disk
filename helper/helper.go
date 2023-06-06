@@ -5,6 +5,7 @@ import (
 	"cloud_disk/core/define"
 	"crypto/md5"
 	"crypto/tls"
+	"errors"
 	"fmt"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/dgrijalva/jwt-go"
@@ -31,10 +32,12 @@ func Md5(s string) string {
 // MakeToken 生成用户 Token
 func MakeToken(id int, identity string, name string) (string, error) {
 	userClaim := define.UserClaim{
-		Id:             id,
-		Identity:       identity,
-		Name:           name,
-		StandardClaims: jwt.StandardClaims{},
+		Id:       id,
+		Identity: identity,
+		Name:     name,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(time.Minute * time.Duration(define.CodeExpiration)).Unix(),
+		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, userClaim)
 	tokenString, err := token.SignedString([]byte(define.JwtKey))
@@ -88,9 +91,9 @@ func AliOssUpload(bucket *oss.Bucket, req *http.Request) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	UploadPath := "cloud_disk/" + GetUUID() + path.Ext(fileHandler.Filename) // path.Ext(fileHandler.Filename)获取文件名对应的文件后缀
+	UploadPath := "cloud_disk/" + GetUUID() + path.Ext(fileHandler.Filename) // path.Ext(fileHandler.Filename) 获取文件名对应的文件后缀
 	fmt.Println("UPLOADPATH: ", UploadPath)
-	// 上传到OSS上
+	// 上传到 OSS 上
 	err = bucket.PutObject(UploadPath, file)
 	if err != nil {
 		fmt.Println("Error:", err)
@@ -98,4 +101,22 @@ func AliOssUpload(bucket *oss.Bucket, req *http.Request) (string, error) {
 	}
 	// 没有错误的话返回文件路径
 	return UploadPath, nil
+}
+
+// AnalyzeToken 解析 Token
+func AnalyzeToken(token string) (*define.UserClaim, error) {
+	uc := new(define.UserClaim)
+	claims, err := jwt.ParseWithClaims(token, uc, func(token *jwt.Token) (interface{}, error) {
+		return []byte(define.JwtKey), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	if !claims.Valid {
+		fmt.Println(uc.Name, uc.Identity, uc.ExpiresAt)
+		fmt.Println("claims.Valid : ", claims.Valid)
+		return uc, errors.New("token is invalid")
+	}
+	return uc, nil
 }

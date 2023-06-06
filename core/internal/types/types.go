@@ -40,7 +40,7 @@ type UserRegisterReply struct {
 type FilesUploadRequest struct {
 	Hash string `json:"hash,optional"`
 	Name string `json:"name,optional"`
-	Ext  string `json:"ext,optional"`
+	Ext  string `json:"ext,optional"` // 扩展名
 	Size int64  `json:"size,optional"`
 	Path string `json:"path,optional"`
 }
@@ -49,4 +49,15 @@ type FilesUploadReply struct {
 	Identity string `json:"identity"`
 	Ext      string `json:"ext"`
 	Name     string `json:"name"`
+}
+
+type UserRepositorySaveRequest struct {
+	ParentId           int    `json:"parentId"`
+	RepositoryIdentity string `json:"repositoryIdentity"`
+	Ext                string `json:"ext"`
+	Name               string `json:"name"`
+}
+
+type UserRepositorySaveReply struct {
+	Identity string `json:"identity"`
 }

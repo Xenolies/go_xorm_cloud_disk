@@ -23,4 +23,4 @@ var JwtKey = "cloud_disk"
 var CodeLength = 6
 
 // CodeExpiration 过期时间
-var CodeExpiration = 300
+var CodeExpiration = 30

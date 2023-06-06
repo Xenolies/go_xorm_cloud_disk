@@ -16,7 +16,6 @@ type UserRepositoryPool struct {
 	UserIdentity       string
 	ParentId           int
 	RepositoryIdentity string
-	Hash               string
 	Name               string
 	Ext                string
 	CreatedAt          time.Time
