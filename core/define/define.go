@@ -24,3 +24,6 @@ var CodeLength = 6
 
 // CodeExpiration 过期时间
 var CodeExpiration = 30
+
+// PageSize 分页的默认参数
+var PageSize int = 20
