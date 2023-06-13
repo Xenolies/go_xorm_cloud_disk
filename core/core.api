@@ -2,15 +2,15 @@ service core-api {
 	// 用户登录
 	@handler UserLogin
 	post /user/login (LoginRequest) returns (LoginReply)
-
+	
 	// 用户详情
 	@handler UserDetail
 	get /user/detail (UserDetailRequest) returns (UserDetailReply)
-
+	
 	// 验证码发送接口
 	@handler EmailCodeSend
 	post /mail/code/send (MailCodeSendRequest) returns (MailCodeSendReply)
-
+	
 	// 用户注册接口
 	@handler UserRegister
 	post /user/register (UserRegisterRequest) returns (UserRegisterReply)
@@ -24,13 +24,18 @@ service core-api {
 	// 文件上传接口
 	@handler FilesUpload
 	post /files/upload (FilesUploadRequest) returns (FilesUploadReply)
-
+	
 	// 用户文件关联存储
 	@handler UserRepositorySave
 	post /user/repository/save (UserRepositorySaveRequest) returns (UserRepositorySaveReply)
-
+	
+	// 用户文件列表接口
 	@handler UserFileList
 	get /user/file/list (UserFileListRequest) returns (UserFileListReply)
+	
+	// 用户文件名称修改接口
+	@handler UserFileNameUpdate
+	post /user/file/name/update (UserFileNameUpdateRequest) returns (UserFileNameUpdateReply)
 }
 
 type LoginRequest {
@@ -99,9 +104,9 @@ type UserRepositorySaveReply {
 }
 
 type UserFileListRequest {
-	Id       string `json:"id,optional"`
-	Page     int    `json:"page,optional"`
-	Size     int    `json:"size,optional"`
+	Id   string `json:"id,optional"`
+	Page int    `json:"page,optional"`
+	Size int    `json:"size,optional"`
 }
 
 type UserFile {
@@ -117,4 +122,12 @@ type UserFile {
 type UserFileListReply {
 	List  []*UserFile `json:"list,optional"`
 	Count int64       `json:"count"`
+}
+
+type UserFileNameUpdateRequest {
+	Identity string `json:"identity"`
+	Name     string `json:"name"`
+}
+
+type UserFileNameUpdateReply {
 }

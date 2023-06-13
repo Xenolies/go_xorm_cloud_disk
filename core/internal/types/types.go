@@ -82,3 +82,11 @@ type UserFileListReply struct {
 	List  []*UserFile `json:"list,optional"`
 	Count int64       `json:"count"`
 }
+
+type UserFileNameUpdateRequest struct {
+	Identity string `json:"identity"`
+	Name     string `json:"name"`
+}
+
+type UserFileNameUpdateReply struct {
+}
