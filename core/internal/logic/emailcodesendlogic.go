@@ -32,7 +32,7 @@ func (l *EmailCodeSendLogic) EmailCodeSend(req *types.MailCodeSendRequest) (resp
 	// 查询邮箱是否被注册
 	cnt, err := l.svcCtx.Engine.Where("email = ?", req.Email).Count(new(models.UserBasic))
 	if err != nil {
-		return nil, errors.New("邮箱验证码不存在")
+		return nil, errors.New(" 邮箱验证码不存在 ")
 	}
 	if cnt > 0 {
 		err = errors.New(" 该邮箱已经被注册了 ")

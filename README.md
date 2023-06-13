@@ -21,7 +21,7 @@ create table user_basic
 ```
 
 ```mysql
-create table user_repository_pool
+create table user_repository
 (
     id                  int auto_increment
         primary key,

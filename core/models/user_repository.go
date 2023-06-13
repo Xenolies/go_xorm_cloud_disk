@@ -10,7 +10,7 @@ import (
 * @Version: 1.0
  */
 
-type UserRepositoryPool struct {
+type UserRepository struct {
 	Id                 int
 	Identity           string
 	UserIdentity       string
@@ -23,6 +23,6 @@ type UserRepositoryPool struct {
 	DeletedAt          time.Time
 }
 
-func (u *UserRepositoryPool) TableName() string {
-	return "user_repository_pool"
+func (u *UserRepository) TableName() string {
+	return "user_repository"
 }

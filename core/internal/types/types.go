@@ -63,15 +63,15 @@ type UserRepositorySaveReply struct {
 }
 
 type UserFileListRequest struct {
-	Id   int `json:"id,optional"`
-	Page int `json:"page,optional"`
-	Size int `json:"size,optional"`
+	Id   string `json:"id,optional"`
+	Page int    `json:"page,optional"`
+	Size int    `json:"size,optional"`
 }
 
 type UserFile struct {
 	Id                 int    `json:"id"`
 	Identity           string `json:"identity"`
-	RepositoryIdentity string `json:"repositoryIdentity"`
+	RepositoryIdentity string `json:"repository_identity"`
 	Name               string `json:"name"`
 	Ext                string `json:"ext"`
 	Path               string `json:"path"`
@@ -80,6 +80,5 @@ type UserFile struct {
 
 type UserFileListReply struct {
 	List  []*UserFile `json:"list,optional"`
-	Total int64       `json:"total,optional"`
-	Count int64       `json:"count,optional"`
+	Count int64       `json:"count"`
 }

@@ -28,7 +28,7 @@ func NewUserRepositorySaveLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *UserRepositorySaveLogic) UserRepositorySave(req *types.UserRepositorySaveRequest, UserIdentity string) (resp *types.UserRepositorySaveReply, err error) {
-	urp := &models.UserRepositoryPool{
+	urp := &models.UserRepository{
 		Identity:           helper.GetUUID(),
 		UserIdentity:       UserIdentity,
 		ParentId:           req.ParentId,
