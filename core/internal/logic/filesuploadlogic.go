@@ -6,8 +6,6 @@ import (
 	"cloud_disk/core/models"
 	"cloud_disk/helper"
 	"context"
-	"time"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -27,15 +25,12 @@ func NewFilesUploadLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Files
 
 func (l *FilesUploadLogic) FilesUpload(req *types.FilesUploadRequest) (resp *types.FilesUploadReply, err error) {
 	rp := &models.RepositoryPool{
-		Identity:  helper.GetUUID(),
-		Hash:      req.Hash,
-		Name:      req.Name,
-		Ext:       req.Ext,
-		Size:      req.Size,
-		Path:      req.Path,
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
-		DeletedAt: time.Now(),
+		Identity: helper.GetUUID(),
+		Hash:     req.Hash,
+		Name:     req.Name,
+		Ext:      req.Ext,
+		Size:     req.Size,
+		Path:     req.Path,
 	}
 
 	_, err = l.svcCtx.Engine.Insert(rp)

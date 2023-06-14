@@ -18,9 +18,9 @@ type RepositoryPool struct {
 	Ext       string
 	Size      int64
 	Path      string
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt time.Time
+	CreatedAt time.Time `xorm:"created"`
+	UpdatedAt time.Time `xorm:"updated"`
+	DeletedAt time.Time `xorm:"deleted"`
 }
 
 func (r *RepositoryPool) TableName() string {

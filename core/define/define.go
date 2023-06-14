@@ -27,3 +27,6 @@ var CodeExpiration = 600
 
 // PageSize 分页的默认参数
 var PageSize int = 20
+
+// DataFormat 时间格式化格式
+var DataFormat = "2006-01-02 15:04:05"
