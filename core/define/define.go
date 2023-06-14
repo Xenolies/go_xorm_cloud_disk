@@ -23,7 +23,7 @@ var JwtKey = "cloud_disk"
 var CodeLength = 6
 
 // CodeExpiration 过期时间 单位: 分钟
-var CodeExpiration = 30
+var CodeExpiration = 600
 
 // PageSize 分页的默认参数
 var PageSize int = 20

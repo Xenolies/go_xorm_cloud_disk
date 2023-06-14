@@ -5,6 +5,7 @@ import (
 	"cloud_disk/core/internal/types"
 	"cloud_disk/core/models"
 	"context"
+	"errors"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,6 +25,15 @@ func NewUserFileNameUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *UserFileNameUpdateLogic) UserFileNameUpdate(req *types.UserFileNameUpdateRequest, userIdentity string) (resp *types.UserFileNameUpdateReply, err error) {
+	// 判断当前名称在层级下是否存在
+	cnt, err := l.svcCtx.Engine.Where("name = ? AND parent_id = (SELECT parent_id FROM user_repository ur WHERE ur.identity = ?) ", req.Name, req.Identity).Count(new(models.UserRepository))
+	if err != nil {
+		return nil, err
+	}
+	if cnt > 0 {
+		return nil, errors.New(" 该文件名称已经存在 ")
+	}
+	// 文件名称修改
 	data := &models.UserRepository{
 		Name: req.Name,
 	}
