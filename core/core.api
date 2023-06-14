@@ -44,6 +44,10 @@ service core-api {
 	// 用户文件删除接口
 	@handler UserFileDelete
 	delete /user/file/delete (UserFileDeleteRequest) returns (UserFileDeleteReply)
+	
+	// 用户文件移动接口
+	@handler UserFileMove
+	put /user/file/move (UserFileMoveRequest) returns (UserFileMoveReply)
 }
 
 type LoginRequest {
@@ -101,8 +105,8 @@ type FilesUploadReply {
 }
 
 type UserRepositorySaveRequest {
-	ParentId           int    `json:"parentId"`
-	RepositoryIdentity string `json:"repositoryIdentity"`
+	ParentId           int    `json:"parent_id"`
+	RepositoryIdentity string `json:"repository_identity"`
 	Ext                string `json:"ext"`
 	Name               string `json:"name"`
 }
@@ -141,7 +145,7 @@ type UserFileNameUpdateReply {
 }
 
 type UserFolderCreateRequest {
-	ParentId int    `json:"parentId"`
+	ParentId int    `json:"parent_id"`
 	Name     string `json:"name"`
 }
 
@@ -154,4 +158,12 @@ type UserFileDeleteRequest {
 }
 
 type UserFileDeleteReply {
+}
+
+type UserFileMoveRequest {
+	Identity       string `json:"identity"`
+	ParentIdentity string `json:"parent_identity"`
+}
+
+type UserFileMoveReply {
 }

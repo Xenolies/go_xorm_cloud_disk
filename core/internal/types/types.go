@@ -106,3 +106,11 @@ type UserFileDeleteRequest struct {
 
 type UserFileDeleteReply struct {
 }
+
+type UserFileMoveRequest struct {
+	Identity       string `json:"identity"`
+	ParentIdentity string `json:"parentIdentity"`
+}
+
+type UserFileMoveReply struct {
+}
