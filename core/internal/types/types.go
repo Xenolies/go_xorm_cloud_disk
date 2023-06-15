@@ -52,8 +52,8 @@ type FilesUploadReply struct {
 }
 
 type UserRepositorySaveRequest struct {
-	ParentId           int    `json:"parentId"`
-	RepositoryIdentity string `json:"repositoryIdentity"`
+	ParentId           int    `json:"parent_id"`
+	RepositoryIdentity string `json:"repository_identity"`
 	Ext                string `json:"ext"`
 	Name               string `json:"name"`
 }
@@ -92,7 +92,7 @@ type UserFileNameUpdateReply struct {
 }
 
 type UserFolderCreateRequest struct {
-	ParentId int    `json:"parentId"`
+	ParentId int    `json:"parent_id"`
 	Name     string `json:"name"`
 }
 
@@ -109,8 +109,17 @@ type UserFileDeleteReply struct {
 
 type UserFileMoveRequest struct {
 	Identity       string `json:"identity"`
-	ParentIdentity string `json:"parentIdentity"`
+	ParentIdentity string `json:"parent_identity"`
 }
 
 type UserFileMoveReply struct {
+}
+
+type ShareBasicCreateRequest struct {
+	RepositoryIdentity string `json:"repository_identity"`
+	ExpiredTime        int    `json:"expired_time"`
+}
+
+type ShareBasicCreateReply struct {
+	Identity string `json:"identity"`
 }
