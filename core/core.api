@@ -56,6 +56,10 @@ service core-api {
 	// 用户文件分享记录接口
 	@handler ShareBasicCreate
 	post /share/basic/create (ShareBasicCreateRequest) returns (ShareBasicCreateReply)
+	
+	// 分享文件资源保存接口
+	@handler ShareBasicSave
+	post /share/basic/save (ShareBasicSaveRequest) returns (ShareBasicSaveReply)
 }
 
 type LoginRequest {
@@ -196,4 +200,14 @@ type ShareBasicDetailReply {
 	Ext                string `json:"ext"`
 	Size               int64  `json:"size"`
 	Path               string `json:"path"`
+}
+
+type ShareBasicSaveRequest {
+	RepositoryIdentity string `json:"repository_identity"`
+	ParentId           int    `json:"parent_id"`
+}
+
+type ShareBasicSaveReply {
+	// 保存后的唯一标识
+	Identity string `json:"identity"`
 }
