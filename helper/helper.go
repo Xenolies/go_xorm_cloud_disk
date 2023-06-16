@@ -29,14 +29,15 @@ func Md5(s string) string {
 	return fmt.Sprintf("%x", md5.Sum([]byte(s)))
 }
 
-// MakeToken 生成用户 Token
-func MakeToken(id int, identity string, name string) (string, error) {
+// GenerateToken 生成用户 Token
+func GenerateToken(id int, identity string, name string, expirationTime int) (string, error) {
 	userClaim := define.UserClaim{
 		Id:       id,
 		Identity: identity,
 		Name:     name,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Minute * time.Duration(define.CodeExpiration)).Unix(),
+			ExpiresAt: time.Now().Add(time.Minute * time.Duration(expirationTime)).Unix(),
+			//ExpiresAt: time.Now().Add(time.Second * time.Duration(expirationTime)).Unix(),
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, userClaim)

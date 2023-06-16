@@ -18,6 +18,10 @@ service core-api {
 	// 文件详情查看接口
 	@handler ShareBasicDetail
 	get /share/basic/detail (ShareBasicDetailRequest) returns (ShareBasicDetailReply)
+	
+	// Authorization刷新接口
+	@handler RefreshAuthorization
+	post /refresh/authorization (RefreshAuthorizationRequest) returns (RefreshAuthorizationReply)
 }
 
 @server(
@@ -68,7 +72,8 @@ type LoginRequest {
 }
 
 type LoginReply {
-	Token string `json:"token"`
+	Token        string `json:"token"`
+	RefreshToken string `json:"refresh_token"`
 }
 
 type UserDetailRequest {
@@ -210,4 +215,12 @@ type ShareBasicSaveRequest {
 type ShareBasicSaveReply {
 	// 保存后的唯一标识
 	Identity string `json:"identity"`
+}
+
+type RefreshAuthorizationRequest {
+}
+
+type RefreshAuthorizationReply {
+	Token        string `json:"token"`
+	RefreshToken string `json:"refresh_token"`
 }
